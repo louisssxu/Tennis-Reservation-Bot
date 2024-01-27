@@ -7,12 +7,9 @@ const init = async (page) => {
 
 const findCourt = async (page, targetDay, time) => {
   console.log(
-    `Finding courts on the ${targetDay.getDate()}th of ${targetDay.toLocaleDateString(
-      "default",
-      {
-        month: "long",
-      }
-    )} from ${time - 2}:00 to ${time + 2}:00`
+    `Finding courts for ${targetDay.toLocaleDateString("default", {
+      month: "long",
+    })} ${targetDay.getDate()} from ${time - 2}:00 to ${time + 2}:00`
   );
   await setLocationMTL(page);
   await page.waitForTimeout("400");
@@ -35,11 +32,11 @@ const confirmReservation = async (page) => {
   const confirmContentFrame = await confirmFrame.contentFrame();
   await confirmContentFrame.waitForSelector("#mt-modal-actions");
   await confirmContentFrame.click("#mt-modal-actions");
-  console.log("confirmed court reservation");
+  console.log("\n ### Reservation Secured ### \n");
   await page.waitForTimeout("5000");
 };
 
-// functions
+// helper functions
 const reserve = async (page, searchTime) => {
   const buttonOrder = [2, 3, 1, 0, 4];
   await page.waitForSelector("#search-results-container .row");

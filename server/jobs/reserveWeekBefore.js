@@ -1,5 +1,5 @@
 const puppeteer = require("puppeteer");
-const courtResPage = require("../pageActions/courtResPage");
+const courtResPageActions = require("../pageActions/courtResPage");
 const loginPopup = require("../pageActions/loginPopup");
 const schedule = require("node-schedule");
 const { FREQUENCES } = require("../utlis");
@@ -10,32 +10,35 @@ function addDays(date, days) {
   return result;
 }
 
-const reserve = async (time) => {
-  const today = new Date();
-  const targetDay = addDays(today, 7);
-  console.log(`\n\n##### Executing on ${today} #####\n`);
-
+const reserve = async (targetDay, time) => {
+  // launch browser
   const browser = await puppeteer.launch({ headless: "new" });
   const page = await browser.newPage();
   await page.setViewport({ width: 1280, height: 720 });
 
-  await courtResPage.init(page);
+  // get to court reservation page
+  await courtResPageActions.init(page);
   try {
-    await courtResPage.findCourt(page, targetDay, time);
+    await courtResPageActions.findCourt(page, targetDay, time);
   } catch (e) {
     console.log("No court found for this time");
     await browser.close();
     console.log(`\n##### Job ended at ${new Date()} #####\n`);
     return;
   }
+
+  // reserves and logs in when a court is found
   await loginPopup.login(page);
-  await courtResPage.confirmReservation(page);
+  await courtResPageActions.confirmReservation(page);
   await browser.close();
   console.log(`\n##### Job ended at ${new Date()} #####\n`);
 };
 
 const job = schedule.scheduleJob("0 0 0 * * *", async () => {
-  await reserve(13);
+  const today = new Date();
+  console.log(`\n\n##### Executing on ${today} #####\n`);
+  const targetDay = addDays(today, 7);
+  await reserve(targetDay, 13);
 });
 
 module.exports = { job, reserve };

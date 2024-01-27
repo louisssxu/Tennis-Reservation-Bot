@@ -1,7 +1,7 @@
 const { LOGIN } = require("../secret");
 
 async function login(page) {
-  console.log("logging in via iframe");
+  console.log("Logging in via iframe");
   const frame = await page.waitForSelector(
     "#overlay-container > iframe.overlay-element.overlay-active"
   );
