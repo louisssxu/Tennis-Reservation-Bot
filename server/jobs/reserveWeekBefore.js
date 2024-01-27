@@ -34,11 +34,18 @@ const reserve = async (targetDay, time) => {
   console.log(`\n##### Job ended at ${new Date()} #####\n`);
 };
 
-const job = schedule.scheduleJob("0 0 0 * * *", async () => {
+const job = schedule.scheduleJob("0 0 * * *", async () => {
   const today = new Date();
   console.log(`\n\n##### Executing on ${today} #####\n`);
   const targetDay = addDays(today, 7);
   await reserve(targetDay, 13);
 });
 
-module.exports = { job, reserve };
+const jobTest = schedule.scheduleJob("14 0 * * *", async () => {
+  const today = new Date();
+  console.log(`\n\n##### Executing on ${today} #####\n`);
+  const targetDay = addDays(today, 7);
+  await reserve(targetDay, 13);
+});
+
+module.exports = { job, reserve, jobTest };
