@@ -4,12 +4,6 @@ const reserveurl = "https://members.midtown.com/reserve-a-court";
 
 const STATUSCODE = { SUCCESS: 1, ERROR: 0 };
 
-const FREQUENCES = {
-  minutely: "* * * * *",
-  hourly: "* * * *",
-  daily: "* * *",
-};
-
 const Reservation = {
   CourtType: {
     inside: "2795f5dc-14ad-4473-9582-32b2ba515738",
@@ -40,5 +34,4 @@ module.exports = {
   reserveurl,
   Reservation,
   STATUSCODE,
-  FREQUENCES,
 };

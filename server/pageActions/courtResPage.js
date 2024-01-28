@@ -1,8 +1,9 @@
 const { reserveurl, Reservation, STATUSCODE } = require("../utlis");
+const { PendingXHR } = require("pending-xhr-puppeteer");
 
 // actions
 const init = async (page) => {
-  await page.goto(reserveurl);
+  await page.goto(reserveurl, { waitUntil: "networkidle2" });
 };
 
 const findCourt = async (page, targetDay, time) => {
@@ -12,11 +13,10 @@ const findCourt = async (page, targetDay, time) => {
     })} ${targetDay.getDate()} from ${time - 2}:00 to ${time + 2}:00`
   );
   await setLocationMTL(page);
-  await page.waitForTimeout("400");
   await selectCourtDate(page, targetDay);
-  await page.waitForTimeout("400");
+  // wait for dom to rerender
+  await page.waitForTimeout("1000");
   await selectTime(page, time);
-  await page.waitForTimeout("400");
   await submit(page);
   try {
     await reserve(page, time);
@@ -46,16 +46,16 @@ const reserve = async (page, searchTime) => {
       `#buttonLink_${number}`,
       (element) => element.innerText
     );
-    console.log(time + ":00 | " + text);
+    console.log("\t" + time + ":00 | " + text);
     if (text === "RESERVE") {
-      console.log("Found available court at " + time + ":00");
+      console.log("\t\tFound available court at " + time + ":00");
       await page.waitForSelector(`#buttonLink_${number}`);
       await page.click(`#buttonLink_${number}`);
       return;
     } else if (text === "JOIN WAITLIST") {
-      console.log("Court unavailable at " + time + ":00");
+      console.log("\t\tCourt unavailable at " + time + ":00");
     } else {
-      console.log("not loaded");
+      console.log("\t\tnot loaded");
     }
   }
   throw STATUSCODE.ERROR;
@@ -82,6 +82,7 @@ const selectCourtType = async (page, type) => {
 };
 
 const selectCourtDate = async (page, targetDay) => {
+  const pendingXHR = new PendingXHR(page);
   const date = targetDay.getDate();
   await page.waitForSelector("#book-court-date-select");
   await page.click("#book-court-date-select");
@@ -109,6 +110,7 @@ const selectCourtDate = async (page, targetDay) => {
       }),
     date
   );
+  await pendingXHR.waitForAllXhrFinished();
 };
 
 const submit = async (page) => {
