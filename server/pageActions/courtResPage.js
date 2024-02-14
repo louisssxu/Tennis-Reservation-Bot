@@ -13,9 +13,10 @@ const findCourt = async (page, targetDay, time) => {
     })} ${targetDay.getDate()} from ${time - 2}:00 to ${time + 2}:00`
   );
   await setLocationMTL(page);
+  await page.waitForTimeout("500");
   await selectCourtDate(page, targetDay);
   // wait for dom to rerender
-  await page.waitForTimeout("1000");
+  await page.waitForTimeout("500");
   await selectTime(page, time);
   await submit(page);
   try {

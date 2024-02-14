@@ -11,8 +11,5 @@
   "license": "ISC",
   "dependencies": {
     "puppeteer": "^21.6.0"
-  },
-  "devDependencies": {
-    "pending-xhr-puppeteer": "^2.3.3"
   }
 }
