@@ -10,6 +10,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "pending-xhr-puppeteer": "^2.3.3",
     "puppeteer": "^21.6.0"
   }
 }
