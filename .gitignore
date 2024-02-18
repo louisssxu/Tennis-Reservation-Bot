@@ -24,4 +24,4 @@ dist-ssr
 *.sw?
 
 #file containing password
-secret.js
+.env
