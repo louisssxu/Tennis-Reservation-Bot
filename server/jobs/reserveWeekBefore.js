@@ -5,7 +5,7 @@ const loginPopup = require("../pageActions/loginPopup");
 const reserve = async (targetDay, time) => {
   // launch browser
   const browser = await puppeteer.launch({
-    headless: "new",
+    headless: true,
     waitForInitialPage: true,
   });
   const page = await browser.newPage();
