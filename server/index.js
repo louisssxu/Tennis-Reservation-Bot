@@ -13,13 +13,14 @@ function addDays(date, days) {
   console.log(`\n\n##### Executing on ${today} #####\n`);
 
   // TESTS
-  // let testDate = new Date("Feb 24, 2024");
-  // let testTime = 13;
+  let testDate = new Date("Mar 4, 2024");
+  let testTime = 8;
   // console.log(testDate.toString());
   // await reserveWeekBefore.reserveTest(testDate, testTime);
+  await reserveWeekBefore.reserve(testDate, testTime);
 
   //Job
-  await reserveWeekBefore.reserve(targetDay, 13);
+  // await reserveWeekBefore.reserve(targetDay, 13);
 
   console.log(`\n##### Job ended at ${new Date()} #####\n`);
 })();
