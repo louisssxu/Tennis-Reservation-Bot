@@ -1,6 +1,8 @@
 const { reserveurl, Reservation, STATUSCODE } = require("../utlis");
 const { PendingXHR } = require("pending-xhr-puppeteer");
 
+const delay = (time) => new Promise((resolve) => setTimeout(resolve, time));
+
 // actions
 const init = async (page) => {
   await page.goto(reserveurl, { waitUntil: "networkidle2" });
@@ -13,10 +15,10 @@ const findCourt = async (page, targetDay, time) => {
     })} ${targetDay.getDate()} from ${time - 2}:00 to ${time + 2}:00`
   );
   await setLocationMTL(page);
-  await page.waitForTimeout("500");
+  await delay(500);
   await selectCourtDate(page, targetDay);
   // wait for dom to rerender
-  await page.waitForTimeout("500");
+  await delay(500);
   await selectTime(page, time);
   await submit(page);
   try {
@@ -34,7 +36,7 @@ const confirmReservation = async (page) => {
   await confirmContentFrame.waitForSelector("#mt-modal-actions");
   await confirmContentFrame.click("#mt-modal-actions");
   console.log("\n ### Reservation Secured ### \n");
-  await page.waitForTimeout("5000");
+  await delay(3000);
 };
 
 // helper functions
@@ -98,7 +100,7 @@ const selectCourtDate = async (page, targetDay) => {
       })
     );
     // to test
-    page.waitForTimeout("200");
+    await delay(200);
   }
   //   picking date
   await page.$$eval(
@@ -117,7 +119,7 @@ const selectCourtDate = async (page, targetDay) => {
 const submit = async (page) => {
   await page.waitForSelector("#book-court-submit-select");
   await page.click("#book-court-submit-select");
-  await page.waitForTimeout("500");
+  await delay(500);
 };
 
 module.exports = { init, findCourt, confirmReservation };

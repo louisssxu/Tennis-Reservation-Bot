@@ -2,11 +2,12 @@ const puppeteer = require("puppeteer");
 const courtResPageActions = require("../pageActions/courtResPage");
 const loginPopup = require("../pageActions/loginPopup");
 
+const delay = (time) => new Promise((resolve) => setTimeout(resolve, time));
+
 const reserve = async (targetDay, time) => {
   // launch browser
   const browser = await puppeteer.launch({
     headless: true,
-    waitForInitialPage: true,
   });
   const page = await browser.newPage();
   await page.setViewport({ width: 1280, height: 720 });
@@ -34,20 +35,15 @@ const reserveTest = async (targetDay, time) => {
   const page = await browser.newPage();
   await page.setViewport({ width: 1280, height: 720 });
 
-  // get to court reservation page
   await courtResPageActions.init(page);
-  try {
-    await courtResPageActions.findCourt(page, targetDay, time);
-  } catch (e) {
-    console.log("\n No court found for this time");
-    await browser.close();
-    return;
-  }
 
-  // reserves and logs in when a court is found
+  await courtResPageActions.findCourt(page, targetDay, time);
+
   await loginPopup.login(page);
-  console.log("\n ## Logged in but did not confirm ##");
+
   // await courtResPageActions.confirmReservation(page);
+
+  delay(3000);
   await browser.close();
 };
 

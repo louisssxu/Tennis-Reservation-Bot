@@ -1,5 +1,7 @@
 const { LOGIN } = require("../secret");
 
+const delay = (time) => new Promise((resolve) => setTimeout(resolve, time));
+
 async function login(page) {
   console.log("Logging in via iframe");
   const frame = await page.waitForSelector(
@@ -21,9 +23,9 @@ async function login(page) {
   );
   const loginSelector = "#login-submit";
   await contentFrame.waitForSelector(loginSelector);
-  await contentFrame.waitForTimeout("1000");
+  await delay(1000);
   await contentFrame.click(loginSelector);
-  await contentFrame.waitForTimeout("2000");
+  await delay(2000);
 }
 
 module.exports = { login };

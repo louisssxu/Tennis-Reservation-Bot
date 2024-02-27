@@ -12,6 +12,6 @@
   "dependencies": {
     "dotenv": "^16.4.4",
     "pending-xhr-puppeteer": "^2.3.3",
-    "puppeteer": "^21.6.0"
+    "puppeteer": "^22.3.0"
   }
 }
