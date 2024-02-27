@@ -17,10 +17,10 @@ function addDays(date, days) {
   let testTime = 8;
   // console.log(testDate.toString());
   // await reserveWeekBefore.reserveTest(testDate, testTime);
-  // await reserveWeekBefore.reserve(testDate, testTime);
+  await reserveWeekBefore.reserve(testDate, testTime);
 
   //Job
-  await reserveWeekBefore.reserve(targetDay, 13);
+  // await reserveWeekBefore.reserve(targetDay, 13);
 
   console.log(`\n##### Job ended at ${new Date()} #####\n`);
 })();
