@@ -6,13 +6,7 @@ const delay = (time) => new Promise((resolve) => setTimeout(resolve, time));
 const ss = async (page, path) => {
   // await delay(3000);
   await page.screenshot({
-    path: `./screenshots/${path}_${new Date()
-      .toLocaleDateString("en-GB", {
-        day: "2-digit",
-        month: "2-digit",
-        year: "numeric",
-      })
-      .replace(/\//g, "-")}.png`,
+    path: `./screenshots/${path}.png`,
     fullPage: true,
   });
 };
