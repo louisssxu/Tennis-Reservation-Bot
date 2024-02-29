@@ -39,9 +39,9 @@ const confirmReservation = async (page) => {
   await delay(3000);
 };
 
-// helper functions
+// helper functions // 1, 2, 12, 11, 10
 const reserve = async (page, searchTime) => {
-  const buttonOrder = [2, 3, 1, 0, 4];
+  const buttonOrder = [3, 4, 2, 1, 0];
   await page.waitForSelector("#search-results-container .row");
   for (const number of buttonOrder) {
     const time = searchTime + number - 2;

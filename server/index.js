@@ -20,7 +20,7 @@ function addDays(date, days) {
   // await reserveWeekBefore.reserve(testDate, testTime);
 
   //Job
-  await reserveWeekBefore.reserve(targetDay, 13);
+  await reserveWeekBefore.reserve(targetDay, 12);
 
   console.log(`\n##### Job ended at ${new Date()} #####\n`);
 })();
