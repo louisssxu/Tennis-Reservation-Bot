@@ -13,8 +13,8 @@ function addDays(date, days) {
   console.log(`\n\n##### Executing on ${today} #####\n`);
 
   // TESTS
-  let testDate = new Date("Mar 4, 2024");
-  let testTime = 8;
+  let testDate = new Date("Mar 7, 2024");
+  let testTime = 12;
   // console.log(testDate.toString());
   // await reserveWeekBefore.reserveTest(testDate, testTime);
   // await reserveWeekBefore.reserve(testDate, testTime);
