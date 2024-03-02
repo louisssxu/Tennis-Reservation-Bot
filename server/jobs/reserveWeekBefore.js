@@ -26,6 +26,7 @@ const reserve = async (targetDay, time) => {
   await courtResPageActions.confirmReservation(page);
   console.log("\n ## Logged in and secured the court ##");
 
+  await courtResPageActions.ss(page, "end");
   await browser.close();
 };
 
