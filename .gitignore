@@ -25,3 +25,5 @@ dist-ssr
 
 #file containing password
 .env
+
+*.png
