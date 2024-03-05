@@ -1,5 +1,6 @@
 const { reserveurl, Reservation, STATUSCODE } = require("../utlis");
 const { PendingXHR } = require("pending-xhr-puppeteer");
+const { screenshot } = require("./screenshot");
 
 const delay = (time) => new Promise((resolve) => setTimeout(resolve, time));
 
@@ -42,7 +43,8 @@ const confirmReservation = async (page) => {
   );
   const confirmContentFrame = await confirmFrame.contentFrame();
   await confirmContentFrame.waitForSelector("#mt-modal-actions");
-  await ss(page, "confirmation");
+  // await ss(page, "confirmation");
+  await screenshot(page, "confirmation");
   await confirmContentFrame.click("#mt-modal-actions");
   console.log("\n ### Reservation Secured ### \n");
   await delay(3000);
@@ -52,7 +54,8 @@ const confirmReservation = async (page) => {
 const reserve = async (page, searchTime) => {
   const buttonOrder = [3, 4, 2, 1, 0];
   await page.waitForSelector("#search-results-container .row");
-  await ss(page, "courts");
+  // await ss(page, "courts");
+  await screenshot(page, "courts");
   for (const number of buttonOrder) {
     const time = searchTime + number - 2;
     const text = await page.$eval(

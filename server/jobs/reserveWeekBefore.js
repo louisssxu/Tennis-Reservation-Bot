@@ -1,6 +1,7 @@
 const puppeteer = require("puppeteer");
 const courtResPageActions = require("../pageActions/courtResPage");
 const loginPopup = require("../pageActions/loginPopup");
+const { screenshot } = require("../pageActions/screenshot");
 
 const delay = (time) => new Promise((resolve) => setTimeout(resolve, time));
 
@@ -17,7 +18,7 @@ const reserve = async (targetDay, time) => {
     await courtResPageActions.findCourt(page, targetDay, time);
   } catch (e) {
     console.log("\n No court found for this time");
-    await courtResPageActions.ss(page, "error");
+    await screenshot(page, "error");
     await browser.close();
     return;
   }
@@ -26,7 +27,7 @@ const reserve = async (targetDay, time) => {
   await courtResPageActions.confirmReservation(page);
   console.log("\n ## Logged in and secured the court ##");
 
-  await courtResPageActions.ss(page, "end");
+  await screenshot(page, "end");
   await browser.close();
 };
 
@@ -43,7 +44,7 @@ const reserveTest = async (targetDay, time) => {
     await courtResPageActions.findCourt(page, targetDay, time);
   } catch (e) {
     console.log("\n No court found for this time");
-    await courtResPageActions.ss(page, "error");
+    await screenshot(page, "error");
     await browser.close();
     return;
   }
