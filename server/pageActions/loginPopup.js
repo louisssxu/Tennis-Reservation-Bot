@@ -1,5 +1,3 @@
-const { LOGIN } = require("../secret");
-
 const delay = (time) => new Promise((resolve) => setTimeout(resolve, time));
 
 async function login(page) {
@@ -13,17 +11,17 @@ async function login(page) {
   await contentFrame.$eval(
     "#edit-username",
     (el, value) => (el.value = value),
-    LOGIN.USERNAME
+    process.env.ACC_USER
   );
   await contentFrame.waitForSelector("#edit-password", { visible: true });
   await contentFrame.$eval(
     "#edit-password",
     (el, value) => (el.value = value),
-    LOGIN.PASSWORD
+    process.env.ACC_PASS
   );
   const loginSelector = "#login-submit";
   await contentFrame.waitForSelector(loginSelector);
-  await delay(1000);
+  await delay(2000);
   await contentFrame.click(loginSelector);
   await delay(2000);
 }

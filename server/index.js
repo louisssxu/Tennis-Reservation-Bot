@@ -1,5 +1,6 @@
 // index.js
 const reserveWeekBefore = require("./jobs/reserveWeekBefore");
+require("dotenv").config();
 
 function addDays(date, days) {
   var result = new Date(date);
