@@ -18,6 +18,7 @@ const reserve = async (targetDay, time) => {
     await courtResPageActions.findCourt(page, targetDay, time);
   } catch (e) {
     console.log("\n No court found for this time");
+    console.error(e);
     await screenshot(page, "error");
     await browser.close();
     return;
@@ -25,9 +26,10 @@ const reserve = async (targetDay, time) => {
   // reserves and logs in when a court is found
   try {
     await loginPopup.login(page);
-    await courtResPageActions.confirmReservation(page);
+    // await courtResPageActions.confirmReservation(page);
   } catch (e) {
     console.log("\n Error logging in and confirming reservation");
+    console.error(e);
     await screenshot(page, "error");
     await browser.close();
     return;
