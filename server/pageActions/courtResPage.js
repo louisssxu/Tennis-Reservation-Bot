@@ -44,7 +44,7 @@ const confirmReservation = async (page) => {
   const confirmContentFrame = await confirmFrame.contentFrame();
   await confirmContentFrame.waitForSelector("#mt-modal-actions");
   await screenshot(page, "confirmation");
-  // await confirmContentFrame.click("#mt-modal-actions");
+  await confirmContentFrame.click("#mt-modal-actions");
   console.log("\n ### Reservation Secured ### \n");
   await delay(3000);
 };
