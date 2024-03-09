@@ -26,7 +26,7 @@ const reserve = async (targetDay, time) => {
   // reserves and logs in when a court is found
   try {
     await loginPopup.login(page);
-    // await courtResPageActions.confirmReservation(page);
+    await courtResPageActions.confirmReservation(page);
   } catch (e) {
     console.log("\n Error logging in and confirming reservation");
     console.error(e);

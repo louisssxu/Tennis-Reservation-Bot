@@ -23,11 +23,11 @@ async function login(page) {
     process.env.ACC_PASS
   );
   await screenshot(page, "login");
-  // const loginSelector = "#login-submit";
-  // await contentFrame.waitForSelector(loginSelector);
-  // await delay(2000);
-  // await contentFrame.click(loginSelector);
-  // await delay(2000);
+  const loginSelector = "#login-submit";
+  await contentFrame.waitForSelector(loginSelector);
+  await delay(2000);
+  await contentFrame.click(loginSelector);
+  await delay(2000);
 }
 
 module.exports = { login };
