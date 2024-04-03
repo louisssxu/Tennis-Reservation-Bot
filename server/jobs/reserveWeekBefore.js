@@ -43,7 +43,7 @@ const reserve = async (targetDay, time) => {
 const reserveTest = async (targetDay, time) => {
   // launch browser
   const browser = await puppeteer.launch({
-    headless: true,
+    headless: false,
   });
   const page = await browser.newPage();
   await page.setViewport({ width: 1280, height: 720 });
@@ -54,7 +54,7 @@ const reserveTest = async (targetDay, time) => {
   } catch (e) {
     console.log("\n No court found for this time");
     await screenshot(page, "error");
-    await browser.close();
+    // await browser.close();
     return;
   }
   // reserves and logs in when a court is found
@@ -62,7 +62,7 @@ const reserveTest = async (targetDay, time) => {
   // await courtResPageActions.confirmReservation(page);
   console.log("\n ## Logged in and secured the court ##");
 
-  await browser.close();
+  // await browser.close();
 };
 
 module.exports = { reserve, reserveTest };
