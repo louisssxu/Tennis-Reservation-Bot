@@ -27,8 +27,8 @@ const findCourt = async (page, targetDay, time) => {
   await delay(500);
   await selectCourtDate(page, targetDay);
   // wait for dom to rerender
-  await delay(500);
-  await selectDuration(page, 120);
+  // await delay(500);
+  // await selectDuration(page, 120);
   await delay(500);
   await selectTime(page, time);
   await submit(page);
