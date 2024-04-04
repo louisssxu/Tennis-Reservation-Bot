@@ -5,7 +5,7 @@ const { screenshot } = require("../pageActions/screenshot");
 
 const delay = (time) => new Promise((resolve) => setTimeout(resolve, time));
 
-const reserve = async (targetDay, time) => {
+const reserve = async (targetDay, time, username, password) => {
   // launch browser
   const browser = await puppeteer.launch({
     headless: true,
@@ -25,7 +25,7 @@ const reserve = async (targetDay, time) => {
   }
   // reserves and logs in when a court is found
   try {
-    await loginPopup.login(page);
+    await loginPopup.login(page, username, password);
     await courtResPageActions.confirmReservation(page);
   } catch (e) {
     console.log("\n Error logging in and confirming reservation");

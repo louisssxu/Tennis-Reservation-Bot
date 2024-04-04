@@ -1,4 +1,3 @@
-// index.js
 const reserveWeekBefore = require("./jobs/reserveWeekBefore");
 require("dotenv").config();
 
@@ -23,10 +22,10 @@ function addDays(date, days) {
   //Job
   await reserveWeekBefore.reserve(
     targetDay,
-    12,
-    process.env.ACC_USER,
-    process.env.ACC_PASS
-  ); // to change back to 12
+    17,
+    process.env.ACC_USER_2,
+    process.env.ACC_PASS_2
+  ); // to change back to 17
 
   console.log(`\n##### Job ended at ${new Date()} #####\n`);
 })();

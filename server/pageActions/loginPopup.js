@@ -1,7 +1,7 @@
 const delay = (time) => new Promise((resolve) => setTimeout(resolve, time));
 const { screenshot } = require("./screenshot");
 
-async function login(page) {
+async function login(page, username, password) {
   console.log("Logging in via iframe");
   const frame = await page.waitForSelector(
     "#overlay-container > iframe.overlay-element.overlay-active"
@@ -12,13 +12,13 @@ async function login(page) {
   await contentFrame.$eval(
     "#edit-username",
     (el, value) => (el.value = value),
-    process.env.ACC_USER
+    username
   );
   await contentFrame.waitForSelector("#edit-password", { visible: true });
   await contentFrame.$eval(
     "#edit-password",
     (el, value) => (el.value = value),
-    process.env.ACC_PASS
+    password
   );
   await screenshot(page, "login");
   const loginSelector = "#login-submit";
