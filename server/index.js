@@ -13,7 +13,7 @@ function addDays(date, days) {
   const targetDay = addDays(today, 7);
   console.log(`\n\n##### Executing on ${today} #####\n`);
 
-  // TESTS
+  // TESTS IM EDITING THROUHT VIM!
   let testDate = new Date("Apr 09, 2024");
   let testTime = 15;
   // console.log(testDate.toString());
