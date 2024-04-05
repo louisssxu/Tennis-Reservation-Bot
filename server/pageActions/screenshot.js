@@ -1,8 +1,10 @@
 const fs = require("fs").promises;
 const path = require("path");
 
-async function screenshot(page, screenshotPath) {
-  const dirPath = path.join(__dirname, "screenshots");
+async function screenshot(page, folder, fileName) {
+  const dirPath = path.join(__dirname, "screenshots", folder);
+
+  // const dirPath = path.join(__dirname, folder);
 
   try {
     // Check if the directory exists, `access` throws an error if it does not
@@ -14,7 +16,7 @@ async function screenshot(page, screenshotPath) {
 
   // Proceed to take a screenshot
   await page.screenshot({
-    path: path.join(dirPath, `${screenshotPath}.png`),
+    path: path.join(dirPath, `${fileName}.png`),
     fullPage: true,
   });
 }

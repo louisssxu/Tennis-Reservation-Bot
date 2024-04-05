@@ -4,20 +4,12 @@ const { screenshot } = require("./screenshot");
 
 const delay = (time) => new Promise((resolve) => setTimeout(resolve, time));
 
-const ss = async (page, path) => {
-  // await delay(3000);
-  await page.screenshot({
-    path: `./screenshots/${path}.png`,
-    fullPage: true,
-  });
-};
-
 // actions
 const init = async (page) => {
   await page.goto(reserveurl, { waitUntil: "networkidle2" });
 };
 
-const findCourt = async (page, targetDay, time) => {
+const findCourt = async (page, targetDay, time, username) => {
   console.log(
     `Finding courts for ${targetDay.toLocaleDateString("default", {
       month: "long",
@@ -33,30 +25,29 @@ const findCourt = async (page, targetDay, time) => {
   await selectTime(page, time);
   await submit(page);
   try {
-    await reserve(page, time);
+    await reserve(page, time, username);
   } catch (e) {
     throw e;
   }
 };
 
-const confirmReservation = async (page) => {
+const confirmReservation = async (page, username) => {
   const confirmFrame = await page.waitForSelector(
     "#overlay-container > iframe.overlay-element.overlay-active"
   );
   const confirmContentFrame = await confirmFrame.contentFrame();
   await confirmContentFrame.waitForSelector("#mt-modal-actions");
-  await screenshot(page, "confirmation");
+  await screenshot(page, username, "confirmation");
   await confirmContentFrame.click("#mt-modal-actions");
   console.log("\n ### Reservation Secured ### \n");
   await delay(3000);
 };
 
 // helper functions // 1, 2, 12, 11, 10
-const reserve = async (page, searchTime) => {
+const reserve = async (page, searchTime, username) => {
   const buttonOrder = [3, 4, 2, 1, 0];
   await page.waitForSelector("#search-results-container .row");
-  // await ss(page, "courts");
-  await screenshot(page, "courts");
+  await screenshot(page, username, "courts");
   for (const number of buttonOrder) {
     const time = searchTime + number - 2;
     const text = await page.$eval(
@@ -136,4 +127,4 @@ const submit = async (page) => {
   await delay(500);
 };
 
-module.exports = { init, findCourt, confirmReservation, ss };
+module.exports = { init, findCourt, confirmReservation };

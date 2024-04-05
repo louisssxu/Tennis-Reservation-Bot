@@ -20,7 +20,7 @@ async function login(page, username, password) {
     (el, value) => (el.value = value),
     password
   );
-  await screenshot(page, "login");
+  await screenshot(page, username, "login");
   const loginSelector = "#login-submit";
   await contentFrame.waitForSelector(loginSelector);
   await delay(1000);

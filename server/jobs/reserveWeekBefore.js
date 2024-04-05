@@ -15,28 +15,28 @@ const reserve = async (targetDay, time, username, password) => {
   // get to court reservation page
   await courtResPageActions.init(page);
   try {
-    await courtResPageActions.findCourt(page, targetDay, time);
+    await courtResPageActions.findCourt(page, targetDay, time, username);
   } catch (e) {
     console.log("\n No court found for this time");
     console.error(e);
-    await screenshot(page, "error");
+    await screenshot(page, username, "error");
     await browser.close();
     return;
   }
   // reserves and logs in when a court is found
   try {
     await loginPopup.login(page, username, password);
-    await courtResPageActions.confirmReservation(page);
+    await courtResPageActions.confirmReservation(page, username);
   } catch (e) {
     console.log("\n Error logging in and confirming reservation");
     console.error(e);
-    await screenshot(page, "error");
+    await screenshot(page, username, "error");
     await browser.close();
     return;
   }
   console.log("\n ## Logged in and secured the court ##");
 
-  await screenshot(page, "end");
+  await screenshot(page, username, "end");
   await browser.close();
 };
 
