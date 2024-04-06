@@ -9,7 +9,6 @@ function addDays(date, days) {
 }
 
 (async () => {
-  await new Promise((resolve) => setTimeout(resolve, 2000));
   const today = new Date();
   const targetDay = addDays(today, 7);
   console.log(`\n\n##### Executing on ${today} #####\n`);
