@@ -8,6 +8,7 @@ const delay = (time) => new Promise((resolve) => setTimeout(resolve, time));
 const reserve = async (targetDay, time, username, password) => {
   // launch browser
   const browser = await puppeteer.launch({
+    // executablePath: "/usr/bin/chromium-browser",
     headless: true,
   });
   const page = await browser.newPage();
