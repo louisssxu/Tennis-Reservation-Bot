@@ -29,7 +29,6 @@ async function login() {
   const loginSelector = "#login-submit";
   await page.waitForSelector(loginSelector);
   await page.click(loginSelector);
-  await delay(500);
 }
 
 async function reserve(date) {
