@@ -36,7 +36,7 @@ async function reserve(date) {
   const dateString = date.toLocaleDateString("en-CA", {
     timeZone: "America/Montreal",
   });
-  let timeString = (date.getHours() + 1).toString();
+  let timeString = date.getHours().toString();
 
   console.log("Reserving for: ", dateString, "@", timeString + ":00");
 
@@ -85,6 +85,6 @@ async function reserve(date) {
   await login();
   await reserve(targetDay);
 
-  console.log("###", Date.now() - today.getTime(), "ms ###");
+  console.log("###", Date.now() - today.getTime(), "ms ###\n");
   process.exit();
 })();
