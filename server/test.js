@@ -7,7 +7,7 @@ async function login() {
   const username = process.env.ACC_USER;
   const password = process.env.ACC_PASS;
   const browser = await puppeteer.launch({
-    headless: false,
+    headless: true,
   });
   const page = await browser.newPage();
   await page.setViewport({ width: 1280, height: 600 });
