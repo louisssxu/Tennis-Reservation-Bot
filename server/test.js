@@ -3,6 +3,12 @@ require("dotenv").config();
 
 const delay = (time) => new Promise((resolve) => setTimeout(resolve, time));
 
+function addDays(date, days) {
+  var result = new Date(date);
+  result.setDate(result.getDate() + days);
+  return result;
+}
+
 async function reserveLocal() {
   const rep = await fetch(
     "https://members.midtown.com/shoppingcart/add/schedule",
@@ -60,34 +66,40 @@ async function reserveAuto() {
 }
 
 (async () => {
-  const username = process.env.ACC_USER;
-  const password = process.env.ACC_PASS;
-  const browser = await puppeteer.launch({
-    // executablePath: "/usr/bin/chromium-browser",
-    headless: true,
-  });
-  const page = await browser.newPage();
-  await page.setViewport({ width: 1280, height: 600 });
-  await page.goto("https://members.midtown.com/", {
-    waitUntil: "networkidle2",
-  });
-  await page.waitForSelector("#edit-username", { visible: true });
-  await page.$eval(
-    "#edit-username",
-    (el, value) => (el.value = value),
-    username
-  );
-  await page.waitForSelector("#edit-password", { visible: true });
-  await page.$eval(
-    "#edit-password",
-    (el, value) => (el.value = value),
-    password
-  );
-  const loginSelector = "#login-submit";
-  await page.waitForSelector(loginSelector);
-  await delay(1000);
-  await page.click(loginSelector);
-  await delay(2000);
+  const today = new Date();
+  const targetDay = addDays(today, 7);
 
-  await reserveAuto();
+  console.log(today.toLocaleDateString({ timeZone: "America/Montreal" }));
+  console.log(targetDay.toLocaleDateString({ timeZone: "America/Montreal" }));
+
+  // const username = process.env.ACC_USER;
+  // const password = process.env.ACC_PASS;
+  // const browser = await puppeteer.launch({
+  //   // executablePath: "/usr/bin/chromium-browser",
+  //   headless: true,
+  // });
+  // const page = await browser.newPage();
+  // await page.setViewport({ width: 1280, height: 600 });
+  // await page.goto("https://members.midtown.com/", {
+  //   waitUntil: "networkidle2",
+  // });
+  // await page.waitForSelector("#edit-username", { visible: true });
+  // await page.$eval(
+  //   "#edit-username",
+  //   (el, value) => (el.value = value),
+  //   username
+  // );
+  // await page.waitForSelector("#edit-password", { visible: true });
+  // await page.$eval(
+  //   "#edit-password",
+  //   (el, value) => (el.value = value),
+  //   password
+  // );
+  // const loginSelector = "#login-submit";
+  // await page.waitForSelector(loginSelector);
+  // await delay(1000);
+  // await page.click(loginSelector);
+  // await delay(2000);
+
+  // await reserveAuto();
 })();
